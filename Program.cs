@@ -32,7 +32,7 @@ int ShowMenu()
         """
     );
 
-    string line = Console.ReadLine();
+    string line = Console.ReadLine() ?? "";
     return Convert.ToInt32(line);
 }
 
@@ -44,7 +44,7 @@ void RemoveTask()
 
         ListTasks();
 
-        string line = Console.ReadLine();
+        string line = Console.ReadLine() ?? "";
         
         // Removes 1 to convert position to index
         int indexToRemove = Convert.ToInt32(line) - 1;
@@ -69,7 +69,7 @@ void RemoveTask()
 void AddTask()
 {
     Console.WriteLine("Ingrese el nombre de la tarea: ");
-    string task = Console.ReadLine();
+    string task = Console.ReadLine() ?? "";
     TaskList.Add(task);
     Console.WriteLine("Tarea registrada");
 }
