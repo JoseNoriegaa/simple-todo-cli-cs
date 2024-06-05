@@ -71,7 +71,7 @@ namespace ToDo
                 } else {
                     string task = TaskList[indexToRemove];
                     TaskList.RemoveAt(indexToRemove);
-                    Console.WriteLine("Tarea " + task + " eliminada");
+                    Console.WriteLine($"Tarea {task} eliminada");
                 }
             }
             catch (Exception)
