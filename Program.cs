@@ -20,23 +20,18 @@ do
 
 
 
-/// <summary>
-/// Shows the main menu 
-/// </summary>
-/// <returns>Returns option indicated by user</returns>
 int ShowMenu()
 {
     Console.WriteLine(
         """
-                ----------------------------------------
-                1. Nueva tarea
-                2. Remover tarea
-                3. Tareas pendientes
-                4. Salir
-                """
+        ----------------------------------------
+        1. Nueva tarea
+        2. Remover tarea
+        3. Tareas pendientes
+        4. Salir
+        """
     );
 
-    // Read line
     string line = Console.ReadLine();
     return Convert.ToInt32(line);
 }
@@ -47,14 +42,12 @@ void RemoveTask()
     {
         Console.WriteLine("Ingrese el número de la tarea a remover: ");
 
-        // Show current tasks
         ListTasks();
 
         string line = Console.ReadLine();
-
-        // Remove one position
+        
+        // Removes 1 to convert position to index
         int indexToRemove = Convert.ToInt32(line) - 1;
-
         bool indexIsInRange = indexToRemove >= 0 && indexToRemove < TaskList.Count - 1;
         if (!indexIsInRange)
         {
