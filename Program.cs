@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ToDo
 {
@@ -63,8 +64,11 @@ namespace ToDo
 
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(line) - 1;
-                if (indexToRemove > -1 && TaskList.Count > 0)
-                {
+
+                bool indexIsInRange = indexToRemove >= 0 && indexToRemove < TaskList.Count - 1;
+                if (!indexIsInRange) {
+                    Console.WriteLine("Número de tarea no válido.");
+                } else {
                     string task = TaskList[indexToRemove];
                     TaskList.RemoveAt(indexToRemove);
                     Console.WriteLine("Tarea " + task + " eliminada");
@@ -72,21 +76,16 @@ namespace ToDo
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
             }
         }
 
         public static void AddTask()
         {
-            try
-            {
-                Console.WriteLine("Ingrese el nombre de la tarea: ");
-                string task = Console.ReadLine();
-                TaskList.Add(task);
-                Console.WriteLine("Tarea registrada");
-            }
-            catch (Exception)
-            {
-            }
+            Console.WriteLine("Ingrese el nombre de la tarea: ");
+            string task = Console.ReadLine();
+            TaskList.Add(task);
+            Console.WriteLine("Tarea registrada");
         }
 
         public static void ShowMenuTaskList()
