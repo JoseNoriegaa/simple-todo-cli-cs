@@ -5,7 +5,7 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TaskList { get; set; } 
+        public static List<string> TaskList { get; set; }
 
         static void Main(string[] args)
         {
@@ -14,19 +14,19 @@ namespace ToDo
             do
             {
                 selectedOption = ShowMenu();
-                if (selectedOption == (int) OptionMenu.Add)
+                if (selectedOption == (int)OptionMenu.Add)
                 {
                     AddTask();
                 }
-                else if (selectedOption == (int) OptionMenu.Remove)
+                else if (selectedOption == (int)OptionMenu.Remove)
                 {
                     RemoveTask();
                 }
-                else if (selectedOption == (int) OptionMenu.List)
+                else if (selectedOption == (int)OptionMenu.List)
                 {
-                    ShowPendingTasks();
+                    ShowMenuTaskList();
                 }
-            } while (selectedOption != (int) OptionMenu.Exit);
+            } while (selectedOption != (int)OptionMenu.Exit);
         }
 
         /// <summary>
@@ -35,12 +35,15 @@ namespace ToDo
         /// <returns>Returns option indicated by user</returns>
         public static int ShowMenu()
         {
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("Ingrese la opción a realizar: ");
-            Console.WriteLine("1. Nueva tarea");
-            Console.WriteLine("2. Remover tarea");
-            Console.WriteLine("3. Tareas pendientes");
-            Console.WriteLine("4. Salir");
+            Console.WriteLine(
+                """
+                ----------------------------------------
+                1. Nueva tarea
+                2. Remover tarea
+                3. Tareas pendientes
+                4. Salir
+                """
+            );
 
             // Read line
             string line = Console.ReadLine();
@@ -52,12 +55,9 @@ namespace ToDo
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
+
                 // Show current tasks
-                for (int i = 0; i < TaskList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + TaskList[i]);
-                }
-                Console.WriteLine("----------------------------------------");
+                ListTasks();
 
                 string line = Console.ReadLine();
                 // Remove one position
@@ -91,7 +91,7 @@ namespace ToDo
             }
         }
 
-        public static void ShowPendingTasks()
+        public static void ShowMenuTaskList()
         {
             if (TaskList == null || TaskList.Count == 0)
             {
@@ -99,21 +99,28 @@ namespace ToDo
             }
             else
             {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i < TaskList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + TaskList[i]);
-                }
-                Console.WriteLine("----------------------------------------");
+                ListTasks();
             }
         }
-    }
 
-    public enum OptionMenu
-    {
-        Add = 1,
-        Remove = 2,
-        List = 3,
-        Exit = 4,
+        private static void ListTasks()
+        {
+            Console.WriteLine("----------------------------------------");
+
+            for (int i = 0; i < TaskList.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + TaskList[i]);
+            }
+
+            Console.WriteLine("----------------------------------------");
+        }
+
+        public enum OptionMenu
+        {
+            Add = 1,
+            Remove = 2,
+            List = 3,
+            Exit = 4,
+        }
     }
 }
