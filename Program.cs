@@ -60,16 +60,14 @@ namespace ToDo
                 ListTasks();
 
                 string line = Console.ReadLine();
+
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(line) - 1;
-                if (indexToRemove > -1)
+                if (indexToRemove > -1 && TaskList.Count > 0)
                 {
-                    if (TaskList.Count > 0)
-                    {
-                        string task = TaskList[indexToRemove];
-                        TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
-                    }
+                    string task = TaskList[indexToRemove];
+                    TaskList.RemoveAt(indexToRemove);
+                    Console.WriteLine("Tarea " + task + " eliminada");
                 }
             }
             catch (Exception)
@@ -96,21 +94,21 @@ namespace ToDo
             if (TaskList == null || TaskList.Count == 0)
             {
                 Console.WriteLine("No hay tareas por realizar");
+                return;
             }
-            else
-            {
-                ListTasks();
-            }
+
+            ListTasks();
         }
 
         private static void ListTasks()
         {
             Console.WriteLine("----------------------------------------");
 
-            for (int i = 0; i < TaskList.Count; i++)
-            {
-                Console.WriteLine((i + 1) + ". " + TaskList[i]);
-            }
+            int index = 0;
+            TaskList.ForEach((task) => {
+                index++;
+                Console.WriteLine($"{index}. {task}");
+            });
 
             Console.WriteLine("----------------------------------------");
         }
