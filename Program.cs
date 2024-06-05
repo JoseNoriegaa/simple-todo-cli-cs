@@ -1,4 +1,6 @@
-﻿List<string> TaskList = new List<string>();
+﻿using System.Text.RegularExpressions;
+
+List<string> TaskList = new List<string>();
 
 int selectedOption = 0;
 do
@@ -31,8 +33,8 @@ int ShowMenu()
         4. Salir
         """
     );
+    string line = CaptureInput("^[0-9]{1,}$");
 
-    string line = Console.ReadLine() ?? "";
     return Convert.ToInt32(line);
 }
 
@@ -44,8 +46,8 @@ void RemoveTask()
 
         ListTasks();
 
-        string line = Console.ReadLine() ?? "";
-        
+        string line = CaptureInput("^[0-9]{1,}");
+
         // Removes 1 to convert position to index
         int indexToRemove = Convert.ToInt32(line) - 1;
         bool indexIsInRange = indexToRemove >= 0 && indexToRemove < TaskList.Count - 1;
@@ -69,7 +71,7 @@ void RemoveTask()
 void AddTask()
 {
     Console.WriteLine("Ingrese el nombre de la tarea: ");
-    string task = Console.ReadLine() ?? "";
+    string task = CaptureInput();
     TaskList.Add(task);
     Console.WriteLine("Tarea registrada");
 }
@@ -97,6 +99,25 @@ void ListTasks()
     });
 
     Console.WriteLine("----------------------------------------");
+}
+
+string CaptureInput(string? pattern = null, string errorMessage = "Opción no válida")
+{
+    string? input = null;
+
+    do
+    {
+        input = (Console.ReadLine() ?? "").Trim();
+
+        if (!String.IsNullOrEmpty(pattern) && !Regex.IsMatch(input, pattern))
+        {
+            input = null;
+            Console.WriteLine(errorMessage);
+        }
+
+    } while (String.IsNullOrEmpty(input));
+
+    return input!;
 }
 
 public enum OptionMenu
