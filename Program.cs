@@ -5,7 +5,7 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TaskList { get; set; }
+        public static List<string> TaskList { get; set; } 
 
         static void Main(string[] args)
         {
@@ -14,19 +14,19 @@ namespace ToDo
             do
             {
                 selectedOption = ShowMenu();
-                if (selectedOption == 1)
+                if (selectedOption == (int) OptionMenu.Add)
                 {
                     AddTask();
                 }
-                else if (selectedOption == 2)
+                else if (selectedOption == (int) OptionMenu.Remove)
                 {
                     RemoveTask();
                 }
-                else if (selectedOption == 3)
+                else if (selectedOption == (int) OptionMenu.List)
                 {
                     ShowPendingTasks();
                 }
-            } while (selectedOption != 4);
+            } while (selectedOption != (int) OptionMenu.Exit);
         }
 
         /// <summary>
@@ -107,5 +107,13 @@ namespace ToDo
                 Console.WriteLine("----------------------------------------");
             }
         }
+    }
+
+    public enum OptionMenu
+    {
+        Add = 1,
+        Remove = 2,
+        List = 3,
+        Exit = 4,
     }
 }
